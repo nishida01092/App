@@ -1,0 +1,6 @@
+コンテナの起動
+docker-compsoe up -d
+コンテナに入る
+docker-compose exec go ash
+コマンドの実行
+go run main.go
