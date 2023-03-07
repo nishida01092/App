@@ -1,12 +1,41 @@
 version: "3"
 services:
-  go:
-    build: 
+  # go:
+  #   build: 
+  #     context: .
+  #     dockerfile: ./backend/Dockerfile
+  #   tty: true
+  #   volumes:
+  #     - type: bind
+  #       source: "./backend"
+  #       target: "/go/src/app"
+  #   working_dir: /go/src/app
+  #   networks:
+  #     - golang_test_network
+  db:
+    build:
       context: .
-      dockerfile: ./backend/Dockerfile
+      dockerfile: ./database/Dockerfile
     tty: true
+    platform: linux/x86_64
+    ports:
+      - 3306:3306
+    env_file:
+      - ./database/.env
     volumes:
+      - type: volume
+        source: mysql_test_volume
+        target: /var/lib/mysql
       - type: bind
-        source: "./backend"
-        target: "/go/src/app"
-    working_dir: /go/src/app
+        source: ./database/init
+        target: /docker-entrypoint-initdb.d
+    # networks:
+    #   - golang_test_network
+
+volumes:
+  mysql_test_volume:
+    name: mysql_test_volume
+
+# networks:
+#   golang_test_network:
+#     external: true
