@@ -1,6 +1,11 @@
+ネットワークの作成
+docker network create golang_network
 コンテナの起動
 docker-compsoe up -d
 コンテナに入る
 docker-compose exec go ash
 コマンドの実行
 go run main.go
+MYSQLに入る
+docker exec -it db bash
+mysql -uinitialYN -pinitialYN1020 initialYN1020
